@@ -1,6 +1,7 @@
 // This is an event details page which has its own route
 
 export const Event = () => {
+  
   return (
     <div className="eventContainer">
       {/* add your children here (divs)

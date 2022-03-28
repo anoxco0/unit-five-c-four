@@ -1,7 +1,14 @@
-import { useEffect, useState } from "react";
+import axios from "axios";
+import { useState } from "react";
 
 export const LoginSignUp = () => {
-  const [interests,setInterests] = useState([]);
+  const [interest, setInterest] = useState([]);
+  const [tdata,setData] = useState([]);
+  const [logi,setLog] = useState({
+    name:"",
+    password:""
+  });
+
   const [form, setForm] = useState({
      name:"",
      password:"",
@@ -11,19 +18,51 @@ export const LoginSignUp = () => {
      subscribed:"",
   })
   const handleForm =(e)=>{
-    console.log(e.target.value)
+    
       const {className,value} = e.target;
-      setForm({...form,[className]:value});
+      if((className==='technology')||
+        (className==='food')||
+      (className==='movies')||
+      (className==='culture')||
+      (className==='art')||
+      (className==='drama')){
+    setInterest([...interest,value]);
+    setForm({...form,interests:interest})
+      }
+      else
+      setForm({...logi,[className]:value});
   }
-  const handleInterests=(e)=>{
-    console.log(e.target.value)
+  const postdata = (e) =>{
+    e.preventDefault()
+    axios.post('http://localhost:8080/users',{
+      name:form.name,
+     password:form.password,
+     location:form.location,
+     interests:form.interests,
+     image:form.image,
+     subscribed:form.subscribed,
+    })
+  }
+  const handleLogin = (e)=>{
     const {className,value} = e.target;
-    setInterests({...form,[className]:value});
+    setLog({...logi,[className]:value});
   }
-  console.log(form);
+  const postData = (e)=>{
+    e.preventDefault();
+    axios.get(`http://localhost:8080/users`).then((res)=>{setData(res.data)});
+    const dat = tdata.filter((e)=>{
+       if(logi.name===e.name && logi.password===e.password){
+         return true;
+       }
+       else{
+         return false;
+       }
+    })
+    console.log('dat',dat)
+  }
   return (
     <div className="loginSignUp">
-      <form className="signUp" onSubmit={(e) => { }}>
+      <form className="signUp" onSubmit={(e) => {postdata(e) }}>
         <h1>SignUp</h1>
         <label>name</label>
         <input
@@ -52,25 +91,26 @@ export const LoginSignUp = () => {
         <br />
         <label>technology</label>
         <input
+          value='technology'
           type="checkbox"
           className="technology"
-          onChange={(event) => {handleInterests(event) }}
+          onChange={(event) => {handleForm(event) }}
         />
         <br />
         <label>food</label>
-        <input value='food' type="checkbox" className="food" onChange={(event) => {handleInterests(event) }} />
+        <input value='food' type="checkbox" className="food" onChange={(event) => {handleForm(event) }} />
         <br />
         <label>movies</label>
-        <input value='movie' type="checkbox" className="movies" onChange={(event) => {handleInterests(event) }} />
+        <input value='movie' type="checkbox" className="movies" onChange={(event) => {handleForm(event) }} />
         <br />
         <label>culture</label>
-        <input vlaue='culture' type="checkbox" className="culture" onChange={(event) => {handleInterests(event) }} />
+        <input value='culture' type="checkbox" className="culture" onChange={(event) => {handleForm(event) }} />
         <br />
         <label>art</label>
-        <input value='art' type="checkbox" className="art" onChange={(event) => {handleInterests(event) }} />
+        <input value='art' type="checkbox" className="art" onChange={(event) => {handleForm(event) }} />
         <br />
         <label>drama</label>
-        <input value='drama' type="checkbox" className="drama" onChange={(event) => { handleInterests(event)}} />
+        <input value='drama' type="checkbox" className="drama" onChange={(event) => { handleForm(event)}} />
         <br />
         <label>image</label>
         <input
@@ -88,7 +128,7 @@ export const LoginSignUp = () => {
         <input
           type="text"
           className="name"
-          onChange={(event) => { }}
+          onChange={(event) => {handleLogin(event)}}
           required
         />
         <br />
@@ -96,11 +136,11 @@ export const LoginSignUp = () => {
         <input
           type="text"
           className="password"
-          onChange={(event) => { }}
+          onChange={(event) => {handleLogin(event) }}
           required
         />
         <br />
-        <input type="submit" className="submitLoginForm" />
+        <input onClick={(e)=>{postData(e)}} type="submit" className="submitLoginForm" />
       </form>
     </div>
   );

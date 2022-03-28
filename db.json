@@ -1,5 +1,30 @@
 {
-  "users": [],
+  "users": [
+    {
+      "name": "navneet",
+      "password": "harsh",
+      "location": "kolkata",
+      "interests": [
+        "technology",
+        "culture"
+      ],
+      "image": "no image",
+      "subscribed": "",
+      "id": 1
+    },
+    {
+      "name": "Navneet",
+      "password": "harsh",
+      "location": "kolkata",
+      "interests": [
+        "technology",
+        "culture"
+      ],
+      "image": "no",
+      "subscribed": "",
+      "id": 2
+    }
+  ],
   "meetups": [
     {
       "title": "title",
