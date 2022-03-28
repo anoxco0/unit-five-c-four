@@ -1,0 +1,14 @@
+{
+  "users": [],
+  "meetups": [
+    {
+      "title": "title",
+      "date": "",
+      "time": "12:15",
+      "theme": "culture",
+      "description": "hello",
+      "image": "no image",
+      "id": 1
+    }
+  ]
+}
