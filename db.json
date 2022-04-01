@@ -27,12 +27,13 @@
   ],
   "meetups": [
     {
-      "title": "title",
+      "title": "",
+      "location": "",
       "date": "",
-      "time": "12:15",
-      "theme": "culture",
-      "description": "hello",
-      "image": "no image",
+      "time": "",
+      "theme": "",
+      "description": "",
+      "image": "",
       "id": 1
     }
   ]
